@@ -6,13 +6,13 @@ export default function Navigation() {
       <nav>
         <ul>
           <li>
-            <NavLink>Home</NavLink>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink>History</NavLink>
+            <NavLink to="/history">History</NavLink>
           </li>
           <li>
-            <NavLink>Pie Charts</NavLink>
+            <NavLink to="/charts">Pie Charts</NavLink>
           </li>
         </ul>
       </nav>

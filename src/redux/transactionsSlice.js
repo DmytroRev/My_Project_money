@@ -9,27 +9,26 @@ const transactionsSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {
-    addTransaction: {
+    addTransaction: (state, action) => {
+      state.list.push(action.payload);
+    },
+    addHistoryTransaction: {
       reducer: (state, action) => {
-        state.transactions.unshift(action.payload); // Добавляем новую транзакцию в начало списка
+        state.list = [action.payload, ...state.list.slice(0, 2)];
       },
-      prepare: ({ amount, date, type, info }) => {
+      prepare: (payload) => {
         return {
           payload: {
-            amount,
-            date, // Добавляем дату в транзакцию
-            type,
-            info,
-          },
+            ...payload,
+            id: new Date().getTime().toString() // генерируем временный id
+          }
         };
-      },
-    },
-  },
+      }
+    }
+  }
 });
 
-export const { addTransaction } = transactionsSlice.actions;
-
-export const selectRecentTransactions = (state) =>
-  state.transactions.transactions.slice(0, 3); // Выбираем последние три транзакции
+export const { addTransaction, addHistoryTransaction } = transactionsSlice.actions;
 
 export default transactionsSlice.reducer;
+

@@ -1,18 +1,26 @@
+import { nanoid } from "nanoid";
 import { useSelector } from "react-redux";
 
 export const History = () => {
-  const transaction = useSelector((state) => state.transaction.list);
+  const transactions = useSelector((state) => state.transactions.list);
 
   return (
     <div>
-      <h2>Transactions history</h2>
-      <ul>
-        {transaction.map((item) => (
-          <li key={transaction.id}>
-            {item.amount} ({item.type}) : {item.info}
-          </li>
-        ))}
-      </ul>
+      <h1>Transaction History</h1>
+      <div>
+        {transactions.length === 0 ? (
+          <p>No transactions yet.</p>
+        ) : (
+          transactions.map((transaction) => (
+            <div key={nanoid()}>
+              <p>
+                {transaction.amount} ({transaction.category}):{" "}
+                {transaction.info}
+              </p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };
