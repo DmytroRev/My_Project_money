@@ -1,0 +1,25 @@
+.container {
+    margin-bottom: 30px;
+    padding: 10px 30px;
+    background-color: #2C3E50;
+    border-radius: 4px;
+}
+
+.list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    padding: 15px 80px;
+    background-color: #3498db;
+    border-radius: 8px;
+    color: #FFFFFF;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}

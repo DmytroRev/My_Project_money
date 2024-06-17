@@ -67,6 +67,15 @@ button:focus-visible {
   }
 } */
 
-ul, li {
+ul, li, h1, h2, p {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+  background-color: #BCC4DB;
 }

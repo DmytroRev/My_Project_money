@@ -1,0 +1,87 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ECF0F1;
+    border-radius: 4px;
+    width: 400px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #2C3E50;
+}
+
+.containerInput {
+    display: flex;
+    gap: 10px;
+}
+
+.input {
+    padding-left: 15px;
+    width: 250px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: transparent;
+    margin-bottom: 15px;
+    border: 1px solid #3498db;
+}
+
+.inpDate { 
+    width: 70px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: transparent;
+    border: 1px solid #3498db;
+}
+
+.inpDate::placeholder {
+    text-align: center;
+}
+
+.selectContainer {
+     display: flex;
+     gap: 15px;
+}
+
+.select {
+    text-align: center;
+    width: 90px;
+    padding: 5px;
+    margin: 10px 0;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #2C3E50;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Стили для опций */
+option {
+    padding: 10px;
+    background-color: #fff;
+    color: #2C3E50;
+}
+
+/* Стили для селекта при ховере */
+select:hover {
+    border-color: #2980b9;
+    /* цвет границы при ховере */
+}
+
+/* Стили для селекта при фокусе */
+select:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+}

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { addTransaction } from "../../redux/transactionsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+import css from "./AddTransactions.module.css";
 
 export function AddTransaction() {
   const [amount, setAmount] = useState("");
-  const [date, setDate] = useState(""); // Состояние для даты
+  const [date, setDate] = useState(null); // Состояние для даты
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("food"); // Дефолтная категория для расходов
   const [info, setInfo] = useState("");
@@ -38,11 +42,21 @@ export function AddTransaction() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formattedDate = date ? format(date, "yyyy-MM-dd") : "";
+
     dispatch(
-      addTransaction({ amount, date, type, category, subcategory, info })
+      addTransaction({
+        amount,
+        date: formattedDate,
+        type,
+        category,
+        subcategory,
+        info,
+      })
     );
     setAmount("");
-    setDate("");
+    setDate(null);
     setType("expense");
     setCategory("food");
     setInfo("");
@@ -58,76 +72,80 @@ export function AddTransaction() {
 
   return (
     <div>
-      <h1>Add Transaction</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Amount:</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Date:</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Type:</label>
-          <select value={type} onChange={handleTypeChange}>
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
-          </select>
-        </div>
-        <div>
-          <label>Category:</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {type === "expense" ? (
-              <>
-                <option value="food">Food</option>
-                <option value="important">Important</option>
-                <option value="wishlist">Wishlist</option>
-                <option value="other">Other</option>
-              </>
-            ) : (
-              <>
-                <option value="exchange">Exchange</option>
-                <option value="salary">Salary</option>
-                <option value="other">Other</option>
-              </>
-            )}
-          </select>
-        </div>
-        <div>
-          <label>Info:</label>
-          <input
-            type="text"
-            value={info}
-            onChange={handleInfoChange}
-            disabled={subcategory !== ""}
-          />
-        </div>
-        <div>
-          <label>Subcategory:</label>
-          <input
-            type="text"
-            value={subcategory}
-            onChange={handleSubcategoryChange}
-            disabled={info !== ""}
-          />
-        </div>
-        <button type="submit">Add Transaction</button>
-      </form>
+      <div className={css.container}>
+        <h1 className={css.title}>Add New Transaction</h1>
+        <form onSubmit={handleSubmit}>
+          <div className={css.containerInput}>
+            <input
+              className={css.input}
+              type="number"
+              value={amount}
+              placeholder="Amount"
+              onChange={(e) => setAmount(e.target.value)}
+              required
+            />
+            <DatePicker
+              className={css.inpDate}
+              selected={date}
+              onChange={(date) => setDate(date)}
+              placeholderText="Date"
+              // className="custom-datepicker"
+            />
+          </div>
+          <div className={css.selectContainer}>
+            <select
+              className={css.select}
+              value={type}
+              onChange={handleTypeChange}
+            >
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
 
+            <div>
+              <select
+                className={css.select}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {type === "expense" ? (
+                  <>
+                    <option value="food">Food</option>
+                    <option value="important">Important</option>
+                    <option value="wishlist">Wishlist</option>
+                    <option value="other">Other</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="exchange">Exchange</option>
+                    <option value="salary">Salary</option>
+                    <option value="other">Other</option>
+                  </>
+                )}
+              </select>
+            </div>
+          </div>
+          <div>
+            <input
+              type="text"
+              value={info}
+              placeholder="Info"
+              onChange={handleInfoChange}
+              disabled={subcategory !== ""}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              value={subcategory}
+              placeholder="Subcategory"
+              onChange={handleSubcategoryChange}
+              disabled={info !== ""}
+            />
+          </div>
+          <button type="submit">Add Transaction</button>
+        </form>
+      </div>
       <div>
         <h2>Recent Transactions</h2>
         {Object.keys(groupedTransactions).map((date) => (
